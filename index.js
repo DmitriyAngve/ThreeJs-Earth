@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "jsm/controls/OrbitControls.js";
 
-console.log(`THREE REVISION: %c${THREE.REVISION}`, "color: #FFFF11");
+// console.log(`THREE REVISION: %c${THREE.REVISION}`, "color: #FFF000");
 
 const w = window.innerWidth;
 const h = window.innerHeight;
@@ -15,15 +15,15 @@ document.body.appendChild(renderer.domElement);
 
 new OrbitControls(camera, renderer.domElement);
 
+const loader = new THREE.TextureLoader();
 const geometry = new THREE.IcosahedronGeometry(1, 12);
 const material = new THREE.MeshStandardMaterial({
-  color: 0xffff00,
-  // flatShading: true,
+  map: loader.load("/textures/00_earthmap1k.jpg"),
 });
 const earthMesh = new THREE.Mesh(geometry, material);
 scene.add(earthMesh);
 
-const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
+const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444400);
 scene.add(hemiLight);
 
 function animate() {
