@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "jsm/controls/OrbitControls.js";
-
-// console.log(`THREE REVISION: %c${THREE.REVISION}`, "color: #FFF000");
+import getStarfield from "./src/getStarfield.js";
 
 const w = window.innerWidth;
 const h = window.innerHeight;
@@ -12,6 +11,13 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(w, h);
 
 document.body.appendChild(renderer.domElement);
+
+const earthGroup = new THREE.Group();
+earthGroup.rotation.z = (-23.4 * Math.PI) / 180;
+scene.add(earthGroup);
+
+const stars = getStarfield({ numStars: 2000 });
+scene.add(stars);
 
 new OrbitControls(camera, renderer.domElement);
 
@@ -28,7 +34,7 @@ scene.add(hemiLight);
 
 function animate() {
   requestAnimationFrame(animate);
-  earthMesh.rotation.x += 0.001;
+  // earthMesh.rotation.x += 0.001;
   earthMesh.rotation.y += 0.002;
   renderer.render(scene, camera);
 }
